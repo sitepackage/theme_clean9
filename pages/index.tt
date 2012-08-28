@@ -1,0 +1,108 @@
+<div id="frontpage">
+  
+  <div class="highlight_wrapper">     
+      <div class="highlight">
+          <ul id="highlight">
+          [%- if linklists.${settings.linklist_highlight}.links.size || linklists.highlight.links.size %]
+          [%- links = linklists.${settings.linklist_highlight}.links || linklists.highlight.links %]
+          [%- foreach link in links %]
+          [% next if !link.featured_image %]                   
+            <li>
+              <a href="[% link.uri %]" title="[% link.name | html %]">
+                <span style="background-image: url('[% link.featured_image.src | image_uri %]')"></span>
+              </a>
+            </li>
+            [%- end %]
+            [%- else %]                  
+            <li><span style="background-image: url('[% 'highlight_sample.png' | asset_uri %]')"></span></li>
+            <li><span style="background-image: url('[% 'highlight_sample.png' | asset_uri %]')"></span></li>
+            [%- end %]
+          </ul>
+          <script type="text/javascript" charset="utf-8">
+          $j(function(){
+            var slider = $j('#highlight').bxSlider({
+              controls: false,
+              displaySlideQty: 1,
+              moveSlideQty: 1,
+              pager: true,
+              auto: true,
+              pause: 6000
+            });
+          });
+          </script>
+      </div>
+  </div>
+          
+  <div class="banner_wrapper">
+      <ul id="banner">
+        [%- if linklists.${settings.linklist_banner}.links.size  %]              
+         [%- foreach link in linklists.${settings.linklist_banner}.links %]
+         [% next if !link.featured_image %]    
+          <li>
+            <a href="[% link.uri %]" title="[% link.name | html %]">
+            <span style="background-image: url('[% link.featured_image.src | image_uri %]')"></span>
+            </a>
+          </li>
+          [%- end %]
+        [%- else %]                  
+          <li><span style="background-image: url('[% 'banner1_sample.png' | asset_uri %]')"></span></li>
+          <li><span style="background-image: url('[% 'banner2_sample.png' | asset_uri %]')"></span></li>
+          <li><span style="background-image: url('[% 'banner3_sample.png' | asset_uri %]')"></span></li>
+        [%- end %]
+        </ul>           
+  </div>
+          
+  [%- if settings.welcome_message %]
+  <div id="message" class="page">
+    <h1 class="topic"><span>[% pages.${settings.welcome_message}.name | html %]</span></h1>
+    <div class="padding medium_curved">
+      [% pages.${settings.welcome_message}.content %]
+    </div>
+  </div>
+  [%- end %]
+  
+  [%- if settings.frontpage_collection %]
+  [%- collections.frontpage = collections.${settings.frontpage_collection} %]
+  [%- set products = collections.frontpage.products(limit = settings.frontpage_product_limit || 20) %]  
+  <div id="collection" class="page2">
+    <h1 class="topic"><span>[% collections.frontpage ? collections.frontpage.name : 'New Arrival' | html %]</span></h1>
+    <div class="padding">
+      [%- if !products %]
+      คุณต้องเลือกคอลเลคชันสินค้าที่ต้องการแสดงที่หน้าธีม, ตั้งค่าธีม
+      [%- elsif products.size == 0 %]
+      ไม่พบสินค้าในคอลเลคชันนี้
+      [%- else %]      
+      <ul class="grid">
+        [%- foreach product in products %]
+        <li>
+          [%- if !product.available %]
+          <div class="soldout"></div>
+          [%- end %]             
+          <a href="[% product.uri %]">
+            <span class="image" style="background-image: url('[% product.featured_image.src | image_uri ('medium') %]')"></span>
+          </a>
+          <div class="title">[% product.name | html | link_to product.uri %]</div>
+          <div class="price">[% if product.price_max != "0.00" %][% product.price | money_without_decimal %][% end %]</div>
+          [%- if  !settings.ecommerce_enabled %]          
+          <div class="buy">
+            [%- if product.price_varies %]
+            [% '<span class="buttons view"></span>'| link_to (product.uri, product.name) %]
+            [%- else %]
+            <form action="/cart/add" method="post">
+              <input type="hidden" name="variant" value="[% product.variants.first.id %]" />
+              <input type="button" class="buttons add_to_cart" onclick="submit(); return false" title="[% 'Add to Cart' | loc %]" />
+            </form>
+            [%- end %]
+          </div>
+          [%- end %]          
+          <div class="clear" ></div>
+        </li>
+        [%- end %]
+      </ul>
+      <div class="clear"></div>
+      [%- end %]
+    </div>
+  </div>
+  [%- end %]  
+   
+</div>
