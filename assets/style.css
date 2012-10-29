@@ -305,21 +305,21 @@ form .hint_area {
 #header .logo_wrapper,
 #header .logo {
 	width:330px;
-  height:70px;
+  height:85px;
   overflow:hidden;
 }
 #header .logo_wrapper {
 	position:absolute;
   z-index: 10;
   overflow: hidden;
-	top:19px;
+	top:4px;
   left:0px;
 }
 #header .logo_wrapper a{
 	text-decoration:none;
 }
 #header .logo_wrapper .logo {
-  background: no-repeat left top;
+  background: no-repeat left center;
 	display:block;
 }
 #header .logo_wrapper .site_name {
@@ -1264,14 +1264,15 @@ form .hint_area {
 	width: 30px;
 }
 #product .featured_image {
+  width:452px;
   float:left;
 }
 #product .featured_image a{
 	display:block;
 }
 #product .featured_image span {
-	width: 400px;
-	height: 400px;
+	width: 450px;
+	height: 450px;
 	background: #fff no-repeat center center;
 	border:1px solid #eaeaea;
 	display: block;
@@ -1309,7 +1310,7 @@ form .hint_area {
 	padding: 0;
   margin: 30px 0 0 0;
   float: left;
-  width: 400px;
+  width: 452px;
 }
 #product .extra_images ul {
 	padding: 0;
@@ -1318,15 +1319,18 @@ form .hint_area {
 }
 #product .extra_images li {
 	float:left;
-	margin: 0 8px 0 0;
+	margin: 0;
 }
 #product .extra_images li span {
 	display: block;	
-	width:50px;
-	height:50px;
+	width:100px;
+	height:100px;
 	background: #fff no-repeat center center;
-	margin: 0 10px 10px 0;
+	margin: 0 14px 10px 0px;
 	border: 1px solid #eaeaea;
+}
+#product .extra_images .last span {
+  margin: 0 0px 10px 0;
 }
 #product .buy {
 	margin:0 0 0 5px;
